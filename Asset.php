@@ -5,7 +5,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace brussens\maintenance;
+namespace malsa\maintenance;
 
 use yii\web\AssetBundle;
 
@@ -22,7 +22,7 @@ class Asset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@vendor/brussens/yii2-maintenance-mode/assets';
+    public $sourcePath = '@vendor/malsa/yii2-maintenance-mode/assets';
     /**
      * @inheritdoc
      */

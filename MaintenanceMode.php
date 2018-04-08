@@ -81,13 +81,13 @@ class MaintenanceMode extends Component {
      * @since 0.2.0
      * @var string
      */
-    public $layoutPath = '@vendor/brussens/yii2-maintenance-mode/views/layouts/main';
+    public $layoutPath = '@vendor/malsa/yii2-maintenance-mode/views/layouts/main';
     /**
      * Path to view file
      * @since 0.2.0
      * @var string
      */
-    public $viewPath = '@vendor/brussens/yii2-maintenance-mode/views/maintenance/index';
+    public $viewPath = '@vendor/malsa/yii2-maintenance-mode/views/maintenance/index';
     /**
      * Path to command file
      * @since 0.2.2
@@ -118,7 +118,7 @@ class MaintenanceMode extends Component {
      * @since 0.3.0
      * @var string
      */
-    public $consoleController = 'brussens\maintenance\commands\MaintenanceController';
+    public $consoleController = 'malsa\maintenance\commands\MaintenanceController';
 
     /**
      * Disable items.
@@ -267,7 +267,7 @@ class MaintenanceMode extends Component {
         }
         if(!$this->disable) {
             if($this->route === 'maintenance/index') {
-                $app->controllerMap['maintenance'] = 'brussens\maintenance\controllers\MaintenanceController';
+                $app->controllerMap['maintenance'] = 'malsa\maintenance\controllers\MaintenanceController';
             }
             $app->catchAll = [$this->route];
         } else {

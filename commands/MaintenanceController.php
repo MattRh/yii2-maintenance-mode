@@ -5,7 +5,8 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace brussens\maintenance\commands;
+namespace malsa\maintenance\commands;
+
 
 use Yii;
 use yii\console\Controller;
@@ -19,13 +20,12 @@ use yii\helpers\Console;
  * @author Poltoratsky Alexander
  * @since 0.2.2
  */
-class MaintenanceController extends Controller
-{
+class MaintenanceController extends Controller {
+
     /**
      *  Default action of controller.
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         echo 'You have to input command "enable" or "disable"!' . PHP_EOL;
     }
 
@@ -34,32 +34,35 @@ class MaintenanceController extends Controller
      * @since 0.2.2
      * @return int
      */
-    public function actionEnable()
-    {
+    public function actionEnable() {
         $maintenance = Yii::$app->maintenanceMode;
 
-        if (!$maintenance->getIsEnabled(true) && $maintenance->enable()) {
+        if(!$maintenance->getIsEnabled(true) && $maintenance->enable()) {
             $this->stdout("Maintenance mode enabled successfully.\n", Console::FG_GREEN);
+
             return Controller::EXIT_CODE_NORMAL;
         } else {
             $this->stdout("Maintenance mode already enabled.\n", Console::FG_RED);
+
             return Controller::EXIT_CODE_ERROR;
         }
     }
+
     /**
      * Disable maintenance mode.
      * @since 0.2.2
      * @return int
      */
-    public function actionDisable()
-    {
+    public function actionDisable() {
         $maintenance = Yii::$app->maintenanceMode;
 
-        if ($maintenance->getIsEnabled(true) && $maintenance->disable()) {
+        if($maintenance->getIsEnabled(true) && $maintenance->disable()) {
             $this->stdout("Maintenance mode disabled successfully.\n", Console::FG_GREEN);
+
             return Controller::EXIT_CODE_NORMAL;
         } else {
             $this->stdout("Maintenance mode already disabled.\n", Console::FG_RED);
+
             return Controller::EXIT_CODE_ERROR;
         }
     }

@@ -5,8 +5,9 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
+
+use malsa\maintenance\Asset;
 use yii\helpers\Html;
-use brussens\maintenance\Asset;
 
 /**
  * Default layout of maintenance mode component for Yii framework 2.x.x version.
@@ -15,30 +16,29 @@ use brussens\maintenance\Asset;
  * @author Brusensky Dmity <brussens@nativeweb.ru>
  */
 
-/** @var $this \yii\web\View */
-/** @var $content string */
+/**
+ * @var \yii\web\View $this
+ * @var string $content
+ */
 
 Asset::register($this);
+
 ?>
-<?php $this->beginPage(); ?>
-    <!DOCTYPE html>
-    <html lang="<?= Yii::$app->language; ?>">
-    <head>
-        <meta charset="<?= \Yii::$app->charset; ?>">
-        <title><?= Html::encode(Yii::$app->name); ?></title>
-        <?php $this->head(); ?>
-    </head>
-    <body>
-    <?php $this->beginBody(); ?>
-    <section>
-        <?= $content; ?>
-    </section>
-    <footer>
-        <div class="container">
-            <p class="pull-right"><?= Yii::powered() ?></p>
-        </div>
-    </footer>
-    <?php $this->endBody(); ?>
-    </body>
-    </html>
-<?php $this->endPage(); ?>
+
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <title><?= Html::encode(Yii::$app->name) ?></title>
+    <?php $this->head() ?>
+</head>
+<body>
+<?php $this->beginBody() ?>
+<section>
+    <?= $content; ?>
+</section>
+<?php $this->endBody() ?>
+</body>
+</html>
+<?php $this->endPage() ?>

@@ -5,11 +5,12 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace brussens\maintenance;
+namespace malsa\maintenance;
+
 
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\base\Component;
+use yii\base\InvalidConfigException;
 use yii\helpers\FileHelper;
 
 /**
@@ -20,8 +21,8 @@ use yii\helpers\FileHelper;
  * @author Brusensky Dmitry <brussens@nativeweb.ru>
  * @since 0.2.0
  */
-class MaintenanceMode extends Component
-{
+class MaintenanceMode extends Component {
+
     /**
      * Value of "OK" status code.
      */
@@ -130,16 +131,15 @@ class MaintenanceMode extends Component
      * Initial component method.
      * @since 0.2.0
      */
-    public function init()
-    {
+    public function init() {
         Yii::setAlias('@maintenance', $this->commandPath);
-        if (!file_exists(Yii::getAlias('@maintenance'))) {
+        if(!file_exists(Yii::getAlias('@maintenance'))) {
             FileHelper::createDirectory(Yii::getAlias('@maintenance'));
         }
-        if (Yii::$app instanceof \yii\console\Application) {
+        if(Yii::$app instanceof \yii\console\Application) {
             Yii::$app->controllerMap['maintenance'] = $this->consoleController;
         } else {
-            if ($this->getIsEnabled()) {
+            if($this->getIsEnabled()) {
                 $this->filtering();
             }
         }
@@ -151,9 +151,9 @@ class MaintenanceMode extends Component
      * @param bool $onlyConsole
      * @return bool
      */
-    public function getIsEnabled($onlyConsole = false)
-    {
+    public function getIsEnabled($onlyConsole = false) {
         $exists = file_exists($this->getStatusFilePath());
+
         return $onlyConsole ? $exists : $this->enabled || $exists;
     }
 
@@ -162,8 +162,7 @@ class MaintenanceMode extends Component
      * @since 0.2.5
      * @return bool|string
      */
-    protected function getStatusFilePath()
-    {
+    protected function getStatusFilePath() {
         return Yii::getAlias('@maintenance/.enable');
     }
 
@@ -172,12 +171,12 @@ class MaintenanceMode extends Component
      * @since 0.2.5
      * @return bool
      */
-    public function disable()
-    {
+    public function disable() {
         $path = $this->getStatusFilePath();
-        if ($path && file_exists($path)) {
-            return (bool) unlink($path);
+        if($path && file_exists($path)) {
+            return (bool)unlink($path);
         }
+
         return false;
     }
 
@@ -186,10 +185,10 @@ class MaintenanceMode extends Component
      * @since 0.2.5
      * @return bool
      */
-    public function enable()
-    {
+    public function enable() {
         $path = $this->getStatusFilePath();
-        return (bool) file_put_contents($path, ' ');
+
+        return (bool)file_put_contents($path, ' ');
     }
 
     /**
@@ -198,9 +197,9 @@ class MaintenanceMode extends Component
      * @param $filter
      * @return bool
      */
-    protected function checkIp($filter)
-    {
+    protected function checkIp($filter) {
         $ip = Yii::$app->getRequest()->getUserIP();
+
         return $filter === '*' || $filter === $ip || (($pos = strpos($filter, '*')) !== false && !strncmp($ip, $filter, $pos));
     }
 
@@ -209,16 +208,15 @@ class MaintenanceMode extends Component
      * @since 0.2.2
      * @throws InvalidConfigException
      */
-    protected function filtering()
-    {
+    protected function filtering() {
         $app = Yii::$app;
-        if ($this->statusCode) {
-            if (is_integer($this->statusCode)) {
-                if ($app->getRequest()->getIsAjax()) {
+        if($this->statusCode) {
+            if(is_integer($this->statusCode)) {
+                if($app->getRequest()->getIsAjax()) {
                     $app->getResponse()->setStatusCode(self::STATUS_CODE_OK);
                 } else {
                     $app->getResponse()->setStatusCode($this->statusCode);
-                    if ($this->retryAfter){
+                    if($this->retryAfter) {
                         $app->getResponse()->getHeaders()->set('Retry-After', $this->retryAfter);
                     }
                 }
@@ -227,21 +225,20 @@ class MaintenanceMode extends Component
             }
         }
         // Check users
-        if ($this->users) {
-            if (is_array($this->users)) {
-                $this->disable = $app->getUser()->getIdentity()
-                    ? in_array($app->getUser()->getIdentity()->{$this->usernameAttribute}, $this->users)
-                    : false;
-            } elseif (is_string($this->users)) {
+        if($this->users) {
+            if(is_array($this->users)) {
+                $this->disable = $app->getUser()->getIdentity() ? in_array($app->getUser()
+                    ->getIdentity()->{$this->usernameAttribute}, $this->users) : false;
+            } elseif(is_string($this->users)) {
                 $this->disable = $app->getUser()->getIdentity()->{$this->usernameAttribute} === $this->users;
             } else {
                 throw new InvalidConfigException('Parameter "users" should be an array or string.');
             }
         }
         // Check roles
-        if ($this->roles) {
-            if (is_array($this->roles)) {
-                foreach ($this->roles as $role) {
+        if($this->roles) {
+            if(is_array($this->roles)) {
+                foreach($this->roles as $role) {
                     $this->disable = $this->disable || $app->getUser()->can($role);
                 }
             } else {
@@ -249,27 +246,27 @@ class MaintenanceMode extends Component
             }
         }
         // Check URL's
-        if ($this->urls) {
-            if (is_array($this->urls)) {
+        if($this->urls) {
+            if(is_array($this->urls)) {
                 $this->disable = $this->disable || in_array($app->getRequest()->getPathInfo(), $this->urls);
             } else {
                 throw new InvalidConfigException('Parameter "urls" should be an array.');
             }
         }
         // Check IP's
-        if ($this->ips) {
-            if (is_array($this->ips)) {
-                foreach ($this->ips as $filter) {
+        if($this->ips) {
+            if(is_array($this->ips)) {
+                foreach($this->ips as $filter) {
                     $this->disable = $this->disable || $this->checkIp($filter);
                 }
-            } elseif (is_string($this->ips)){
+            } elseif(is_string($this->ips)) {
                 $this->disable = $this->disable || $this->checkIp($this->ips);
             } else {
                 throw new InvalidConfigException('Parameter "ips" should be an array.');
             }
         }
-        if (!$this->disable) {
-            if ($this->route === 'maintenance/index') {
+        if(!$this->disable) {
+            if($this->route === 'maintenance/index') {
                 $app->controllerMap['maintenance'] = 'brussens\maintenance\controllers\MaintenanceController';
             }
             $app->catchAll = [$this->route];

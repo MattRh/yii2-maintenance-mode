@@ -1,17 +1,14 @@
 # Yii2 Maintenance mode component
-[![Latest Stable Version](https://poser.pugx.org/brussens/yii2-maintenance-mode/v/stable)](https://packagist.org/packages/brussens/yii2-maintenance-mode)
-[![Total Downloads](https://poser.pugx.org/brussens/yii2-maintenance-mode/downloads)](https://packagist.org/packages/brussens/yii2-maintenance-mode)
-[![License](https://poser.pugx.org/brussens/yii2-maintenance-mode/license)](https://packagist.org/packages/brussens/yii2-maintenance-mode)
 ## Install
 Either run
 ```
-php composer.phar require --prefer-dist brussens/yii2-maintenance-mode "*"
+php composer.phar require --prefer-dist malsa/yii2-maintenance-mode "*"
 ```
 
 or add
 
 ```
-"brussens/yii2-maintenance-mode": "*"
+"malsa/yii2-maintenance-mode": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -22,7 +19,7 @@ Add to your config file:
 ...
 'components' => [
     'maintenanceMode' => [
-        'class' => 'brussens\maintenance\MaintenanceMode',
+        'class' => 'malsa\maintenance\MaintenanceMode',
     ],
     ...
 ],
@@ -31,7 +28,7 @@ Add to your config file:
 ```php
 'maintenanceMode' => [
     // Component class namespace
-    'class' => 'brussens\maintenance\MaintenanceMode',
+    'class' => 'malsa\maintenance\MaintenanceMode',
 
     // Page title
     'title' => 'Custom title',
@@ -50,7 +47,7 @@ Add to your config file:
 
     // Allowed user names
     'users' => [
-        'BrusSENS',
+        'Malsa',
     ],
 
     // Allowed roles
@@ -93,7 +90,7 @@ Add to your console config file:
 ...
 'components' => [
     'maintenanceMode' => [
-        'class' => 'brussens\maintenance\MaintenanceMode',
+        'class' => 'malsa\maintenance\MaintenanceMode',
     ],
 ...
 ],
@@ -101,7 +98,7 @@ Add to your console config file:
 Change your web config file:
 ```php
 'maintenanceMode' => [
-    'class' => 'brussens\maintenance\MaintenanceMode',
+    'class' => 'malsa\maintenance\MaintenanceMode',
     'enabled' => false
 ],
 ```

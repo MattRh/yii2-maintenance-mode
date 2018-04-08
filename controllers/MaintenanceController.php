@@ -5,7 +5,8 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace brussens\maintenance\controllers;
+namespace malsa\maintenance\controllers;
+
 
 use Yii;
 use yii\web\Controller;
@@ -18,13 +19,12 @@ use yii\web\Controller;
  * @author Brusensky Dmitry <brussens@nativeweb.ru>
  * @since 0.2.0
  */
-class MaintenanceController extends Controller
-{
+class MaintenanceController extends Controller {
+
     /**
      * Initialize controller.
      */
-    public function init()
-    {
+    public function init() {
         $this->layout = Yii::$app->maintenanceMode->layoutPath;
         parent::init();
     }
@@ -33,11 +33,10 @@ class MaintenanceController extends Controller
      * Index action.
      * @return bool|string
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $app = Yii::$app;
 
-        if ($app->getRequest()->getIsAjax()) {
+        if($app->getRequest()->getIsAjax()) {
             return false;
         }
 
@@ -46,4 +45,5 @@ class MaintenanceController extends Controller
             'message' => $app->maintenanceMode->message
         ]);
     }
-} 
+
+}

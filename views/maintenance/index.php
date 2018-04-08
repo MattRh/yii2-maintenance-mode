@@ -5,6 +5,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
+
 use yii\helpers\Html;
 
 /**
@@ -14,9 +15,13 @@ use yii\helpers\Html;
  * @author Brusensky Dmity <brussens@nativeweb.ru>
  */
 
-/** @var $title string */
-/** @var $message string */
+/**
+ * @var string $title
+ * @var string $message
+ */
+
 ?>
+
 <h1><?= Html::encode($title) ?></h1>
 <div>
     <p><?= Html::encode($message) ?></p>
